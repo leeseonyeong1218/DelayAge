@@ -1,0 +1,98 @@
+:root{
+  --grad-start:#6C63FF; --grad-end:#4CC9FF; --accent:#00D4FF;
+  --ink:#1A1C2B; --muted:#8A93A7;
+  --bg-top:#E7EDFF; --bg-bottom:#F5F8FF;
+  --card: rgba(255,255,255,.68); --card-border: rgba(255,255,255,.45);
+  --shadow: 0 10px 30px rgba(108, 99, 255, .18);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;font-family:ui-sans-serif,system-ui,AppleSDGothicNeo,"Noto Sans KR",Arial;color:var(--ink);
+  background:linear-gradient(180deg,var(--bg-top),var(--bg-bottom));}
+
+/* header */
+.site-header{max-width:1040px;margin:28px auto 8px;padding:0 16px;display:flex;justify-content:space-between;align-items:center}
+.brand{display:flex;gap:12px;align-items:center}
+.brand-dot{width:40px;height:40px;border-radius:999px;background:linear-gradient(135deg,var(--grad-start),var(--grad-end));box-shadow:0 8px 18px rgba(76,201,255,.35)}
+h1{margin:0;font-size:22px;font-weight:900;color:#2E2A8D}
+.subtitle{color:var(--muted);font-size:12px;font-weight:600}
+
+/* progress */
+.progress-wrap{max-width:1040px;margin:8px auto 20px;padding:0 16px;display:flex;gap:10px;align-items:center}
+.progress-bar{flex:1;height:14px;border-radius:999px;overflow:hidden;background:rgba(255,255,255,.55);border:1px solid var(--card-border);box-shadow:inset 0 1px 2px rgba(0,0,0,.06);backdrop-filter:blur(6px)}
+.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--grad-start),var(--grad-end));border-radius:999px;transition:width .25s ease}
+.progress-index{font-size:12px;color:var(--muted);font-weight:800}
+
+/* layout */
+.container{max-width:1040px;margin:0 auto 120px;padding:0 16px}
+.card{background:var(--card);border:1px solid var(--card-border);border-radius:24px;padding:24px;box-shadow:var(--shadow);backdrop-filter:blur(16px)}
+.card + .card{margin-top:16px}
+.card-title{margin:0 0 12px;font-size:20px;font-weight:900}
+.muted{color:var(--muted);font-size:14px}
+.tiny{font-size:12px;margin-top:6px}
+
+/* questions */
+.q-title{font-weight:900;margin:18px 0 10px}
+.choices{display:grid;grid-template-columns:1fr;gap:10px}
+@media (min-width:768px){.choices{grid-template-columns:repeat(2,1fr)}}
+.choice{display:block;width:100%;text-align:left;border-radius:18px;border:2px solid transparent;background:rgba(255,255,255,.75);
+  padding:14px 16px;font-weight:800;cursor:pointer;box-shadow:0 8px 18px rgba(76,201,255,.15);transition:transform .06s ease,background .2s ease,border-color .2s ease}
+.choice:hover{background:rgba(255,255,255,.9)}
+.choice.active{background:#fff;border-color:transparent;box-shadow:0 10px 24px rgba(108,99,255,.25), inset 0 0 0 2px rgba(108,99,255,.12)}
+.input{width:100%;padding:12px 14px;border-radius:14px;border:1px solid var(--card-border);background:rgba(255,255,255,.82);font-size:15px;box-shadow:inset 0 1px 2px rgba(0,0,0,.05)}
+
+/* buttons */
+.nav-row{display:flex;justify-content:space-between;gap:10px;margin-top:18px}
+.btn{color:#fff;border:none;padding:12px 18px;border-radius:18px;font-weight:900;cursor:pointer;
+  background:linear-gradient(135deg,var(--grad-start),var(--grad-end));box-shadow:0 14px 28px rgba(108,99,255,.28),inset 0 -2px 0 rgba(255,255,255,.25)}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.btn.ghost{background:rgba(255,255,255,.85);color:var(--ink);border:1.5px solid var(--card-border);box-shadow:none;font-weight:800}
+
+/* result grid */
+.result.hidden{display:none}
+.grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:24px;
+  align-items:start;
+  grid-auto-flow:row;
+}
+.grid-full{grid-column:1/-1}
+
+@media (min-width:1024px){
+  .grid{
+    grid-template-columns:2fr 3fr;
+    align-items:stretch;   /* 두 카드 높이 맞춤 */
+  }
+  .grid > .card{
+    height:100%;           /* 카드 높이 균등 */
+  }
+}
+
+/* 결과 요약 카드 상단 여백 조정 */
+#result .card:first-child{
+  padding-top:24px;
+  padding-bottom:24px;
+  margin-top:0;
+}
+.kv{display:grid;gap:6px;margin-top:8px}
+.bullet{margin:8px 0 0 18px}.bullet li{margin:6px 0}
+.mt-16{margin-top:16px}
+
+/* footer */
+.site-footer{text-align:center;color:#9aa3b7;font-size:12px;padding:20px 0 40px}
+
+/* floating NEXT */
+.fab-wrap{position:fixed;right:24px;bottom:24px}
+.fab{background:linear-gradient(135deg,#524CFF,#34C3FF);color:#fff;border:none;font-weight:900;padding:16px 22px;border-radius:999px;box-shadow:0 18px 40px rgba(82,76,255,.35)}
+.fab[disabled]{opacity:.5;cursor:not-allowed}
+
+/* misc */
+canvas{display:block} #radarChart,#barChart{max-width:100%}
+.hidden{display:none !important}
+
+
+
+
+
+

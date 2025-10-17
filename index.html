@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Delay+Age (딜레이지) 설문</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <div class="brand-dot" aria-hidden="true"></div>
+      <h1>Delay+Age (딜레이지)</h1>
+    </div>
+    <span class="subtitle">저속노화(slow aging) 자가진단</span>
+  </header>
+
+  <div class="progress-wrap">
+    <div class="progress-bar">
+      <div id="progressFill" class="progress-fill"></div>
+    </div>
+    <span id="progressIndex" class="progress-index">1 / 5</span>
+  </div>
+
+  <main class="container">
+    <!-- 설문 -->
+    <section id="card" class="card"></section>
+
+    <!-- 결과 -->
+    <section id="result" class="result hidden">
+      <div class="grid">
+        <div class="card">
+          <h2 class="card-title">결과 요약</h2>
+          <p class="muted" id="summaryText"></p>
+
+          <div class="tiny muted" id="peerMeta">
+            <!-- “현재 참여자 N명 기준(동연령 필터 적용)” 문구가 들어갑니다 -->
+          </div>
+
+          <div class="kv">
+            <div><strong>강점</strong> <span id="strength"></span></div>
+            <div><strong>개선</strong> <span id="weakness"></span></div>
+          </div>
+
+          <h3 class="mt-16">제안 루틴 (1주 체크리스트)</h3>
+          <ul id="suggestList" class="bullet"></ul>
+
+          <div class="nav-row">
+            <button id="retryBtn" class="btn ghost">다시 하기</button>
+            <button id="printBtn" class="btn">프린트/저장</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title">영역별 점수 (레이더)</h3>
+          <canvas id="radarChart" height="320"></canvas>
+        </div>
+
+        <div class="card grid-full">
+          <h3 class="card-title">동연령 평균 대비 (막대)</h3>
+          <canvas id="barChart" height="260"></canvas>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    © <span id="year"></span> Delay+Age – Slow Aging by Daily Data
+  </footer>
+
+  <div class="fab-wrap">
+    <button id="nextFab" class="fab" disabled>NEXT</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
