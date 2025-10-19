@@ -1,176 +1,595 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Delay+Age (딜레이지) 설문</title>
-  <link rel="stylesheet" href="styles.css" />
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-</head>
-<body>
-  <header class="site-header">
-    <h1>Delay+Age (딜레이지)</h1>
-    <p class="subtitle">저속노화(slow aging) 자가진단</p>
-  </header>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DelayAge (딜레이지) 설문</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  </head>
+  <body class="start-active">
+    <!-- 상단 헤더 -->
+    <header class="site-header">
+      <h1>DelayAge (딜레이지)</h1>
+      <p class="subtitle">저속노화(slow aging) 자가진단</p>
+    </header>
 
-  <main class="container">
-    <!-- 설문 -->
-    <section id="card" class="card">
-      <form id="surveyForm">
-        <!-- 기본정보 -->
-        <h2 class="section-title">Ⅰ. 기본정보</h2>
-        <div class="grid2">
-          <label class="field">
-            <span>나이대</span>
-            <select name="age" required>
-              <option value="">선택</option>
-              <option value="10">10대 이하</option>
-              <option value="20">20대</option>
-              <option value="30">30대</option>
-              <option value="40">40대</option>
-              <option value="50">50대 이상</option>
-            </select>
-          </label>
-          <label class="field">
-            <span>성별</span>
-            <select name="gender">
-              <option value="0">밝히고 싶지 않음</option>
-              <option value="1">남성</option>
-              <option value="2">여성</option>
-              <option value="3">기타</option>
-            </select>
-          </label>
-        </div>
+    <!-- 진행 게이지 -->
+    <div class="progress-wrap" id="progressWrap">
+      <div class="progress-inner">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+    </div>
 
-        <!-- Ⅱ. 식습관 (5문항) -->
-        <h2 class="section-title mt24">Ⅱ. 식습관 <span class="muted">(총 25점)</span></h2>
-        <div class="q">
-          <p>하루에 채소나 과일을 얼마나 섭취하시나요?</p>
-          <label><input type="radio" name="diet_veg" value="0" required> 거의 먹지 않는다</label>
-          <label><input type="radio" name="diet_veg" value="3"> 하루 1회</label>
-          <label><input type="radio" name="diet_veg" value="5"> 하루 2회 이상</label>
-        </div>
-        <div class="q">
-          <p>단백질(육류, 달걀, 콩류 등)을 얼마나 자주 섭취하시나요?</p>
-          <label><input type="radio" name="diet_protein" value="0" required> 거의 안 먹는다</label>
-          <label><input type="radio" name="diet_protein" value="3"> 하루 1회</label>
-          <label><input type="radio" name="diet_protein" value="5"> 하루 2회 이상</label>
-        </div>
-        <div class="q">
-          <p>가공식품(패스트푸드, 인스턴트, 과자 등)을 얼마나 자주 섭취하시나요?</p>
-          <label><input type="radio" name="diet_processed" value="0" required> 주 3회 이상</label>
-          <label><input type="radio" name="diet_processed" value="3"> 주 1~2회</label>
-          <label><input type="radio" name="diet_processed" value="5"> 거의 안 먹는다</label>
-        </div>
-        <div class="q">
-          <p>야식이나 늦은 시간 식사를 자주 하시나요?</p>
-          <label><input type="radio" name="diet_late" value="0" required> 자주 한다</label>
-          <label><input type="radio" name="diet_late" value="3"> 가끔 한다</label>
-          <label><input type="radio" name="diet_late" value="5"> 거의 안 한다</label>
-        </div>
-        <div class="q">
-          <p>하루에 물을 얼마나 마시나요?</p>
-          <label><input type="radio" name="diet_water" value="0" required> 1L 미만</label>
-          <label><input type="radio" name="diet_water" value="3"> 1~2L</label>
-          <label><input type="radio" name="diet_water" value="5"> 2L 이상</label>
-        </div>
+    <main class="container">
+      <!-- =======================
+           시작 화면 (풀블리드 히어로)
+           ======================= -->
+      <section id="start" class="start-hero-dark step active" data-step="start">
+        <svg
+          class="hero-bg"
+          viewBox="0 0 1440 900"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <rect x="0" y="0" width="1440" height="900" fill="#000" />
+          <!-- 곡선은 고정 수치로 지정(형태 깨짐 방지) -->
+          <ellipse cx="720" cy="-320" rx="1300" ry="700" fill="#7CFF6B" />
+        </svg>
 
-        <!-- Ⅲ. 신체활동 (3문항) -->
-        <h2 class="section-title mt24">Ⅲ. 신체활동 <span class="muted">(총 25점)</span></h2>
-        <div class="q">
-          <p>일주일 동안 총 운동 시간은 얼마나 되나요?</p>
-          <label><input type="radio" name="act_minutes" value="0" required> 전혀 하지 않는다</label>
-          <label><input type="radio" name="act_minutes" value="3"> 주 1~2회(30~60분)</label>
-          <label><input type="radio" name="act_minutes" value="5"> 주 3회 이상(150분 이상)</label>
-        </div>
-        <div class="q">
-          <p>근력운동(웨이트, 필라테스 등)을 주 몇 회 하시나요?</p>
-          <label><input type="radio" name="act_strength" value="0" required> 전혀 안 함</label>
-          <label><input type="radio" name="act_strength" value="3"> 주 1회</label>
-          <label><input type="radio" name="act_strength" value="5"> 주 2회 이상</label>
-        </div>
-        <div class="q">
-          <p>하루 평균 앉아있는 시간(좌식시간)은 얼마나 되나요?</p>
-          <label><input type="radio" name="act_sitting" value="0" required> 9시간 이상</label>
-          <label><input type="radio" name="act_sitting" value="3"> 5~8시간</label>
-          <label><input type="radio" name="act_sitting" value="5"> 4시간 이하</label>
-        </div>
+        <div class="hero-layer">
+          <h2 class="hero-head">저속노화(slow aging) 자가진단</h2>
+          <h1 class="hero-brand-outline">DelayAge</h1>
 
-        <!-- Ⅳ. 수면 (2문항) -->
-        <h2 class="section-title mt24">Ⅳ. 수면 <span class="muted">(총 25점)</span></h2>
-        <div class="q">
-          <p>평균적으로 몇 시간 주무시나요?</p>
-          <label><input type="radio" name="sleep_hours" value="0" required> 5시간 이하</label>
-          <label><input type="radio" name="sleep_hours" value="3"> 6~7시간</label>
-          <label><input type="radio" name="sleep_hours" value="5"> 7~8시간</label>
-        </div>
-        <div class="q">
-          <p>잠드는 시간과 기상 시간이 일정한 편인가요?</p>
-          <label><input type="radio" name="sleep_regular" value="0" required> 매우 불규칙하다</label>
-          <label><input type="radio" name="sleep_regular" value="3"> 약간 일정하다</label>
-          <label><input type="radio" name="sleep_regular" value="5"> 매우 규칙적이다</label>
-        </div>
+          <!-- 시작 일러스트 (원하면 경로 교체) -->
+          <img
+            class="hero-illustration"
+            src="https://i.imgur.com/RJQNSnR.png"
+            alt="DelayAge 캐릭터"
+          />
 
-        <!-- Ⅴ. 스트레스 (3문항) -->
-        <h2 class="section-title mt24">Ⅴ. 스트레스 <span class="muted">(총 25점)</span></h2>
-        <div class="q">
-          <p>지난 2주간 전반적인 스트레스 수준은 어떠했나요?</p>
-          <label><input type="radio" name="stress_level" value="0" required> 매우 높다</label>
-          <label><input type="radio" name="stress_level" value="3"> 보통이다</label>
-          <label><input type="radio" name="stress_level" value="5"> 낮다</label>
-        </div>
-        <div class="q">
-          <p>호흡/명상/산책 등으로 스트레스를 관리했나요?</p>
-          <label><input type="radio" name="stress_coping" value="0" required> 거의 안 했다</label>
-          <label><input type="radio" name="stress_coping" value="3"> 가끔 했다</label>
-          <label><input type="radio" name="stress_coping" value="5"> 규칙적으로 했다</label>
-        </div>
-        <div class="q">
-          <p>취침 1시간 전 스크린 사용(휴대폰/노트북)을 줄이나요?</p>
-          <label><input type="radio" name="stress_sleep" value="0" required> 줄이지 않는다</label>
-          <label><input type="radio" name="stress_sleep" value="3"> 가끔 줄인다</label>
-          <label><input type="radio" name="stress_sleep" value="5"> 거의 사용하지 않는다</label>
-        </div>
+          <p class="hero-desc">
+            딜레이지는 당신의 생활 습관을 기반으로<br />
+            ‘저속노화’ 정도를 자가진단합니다.
+          </p>
 
-        <div class="actions">
-          <button type="submit" class="btn-primary">결과 보기</button>
-        </div>
-      </form>
-    </section>
-
-    <!-- 결과 -->
-    <section id="result" class="result hidden">
-      <div class="grid">
-        <!-- 요약 -->
-        <div class="card">
-          <h2 class="section-title">나의 딜레이지 결과</h2>
-          <p id="summaryText" class="lead"></p>
-          <p id="peerMeta" class="muted tiny"></p>
-          <canvas id="barChart" height="220" class="mt16"></canvas>
-
-          <div class="kv mt16">
-            <div><b>식습관</b> <span id="kvdiet"></span></div>
-            <div><b>신체활동</b> <span id="kvact"></span></div>
-            <div><b>수면</b> <span id="kvsleep"></span></div>
-            <div><b>스트레스</b> <span id="kvstress"></span></div>
-          </div>
-
-          <div class="actions mt24">
-            <button id="retry" class="btn-ghost" type="button">다시 하기</button>
+          <div class="actions">
+            <button id="btnStart" class="btn-primary" type="button">
+              설문 시작하기
+            </button>
           </div>
         </div>
+      </section>
 
-        <!-- 레이더 -->
-        <div class="card">
-          <h2 class="section-title">영역별 점수</h2>
-          <canvas id="radarChart" height="320"></canvas>
+      <!-- =======================
+           설문 카드 (5단계)
+           ======================= -->
+      <section id="card" class="card hidden">
+        <form id="surveyForm" autocomplete="off">
+          <!-- STEP 1: 기본정보 -->
+          <div class="step" data-step="1">
+            <h2 class="section-title">
+              <img
+                src="https://i.imgur.com/2cWmyrk.png"
+                alt="1단계"
+                class="icon-step"
+              />
+              기본정보
+            </h2>
+            <div class="grid2">
+              <label class="field">
+                <span>나이대</span>
+                <select name="age" required>
+                  <option value="">선택</option>
+                  <option value="10">10대 이하</option>
+                  <option value="20">20대</option>
+                  <option value="30">30대</option>
+                  <option value="40">40대</option>
+                  <option value="50">50대 이상</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>성별</span>
+                <select name="gender" required>
+                  <option value="">선택</option>
+                  <option value="1">남성</option>
+                  <option value="2">여성</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="actions">
+              <button class="btn-primary js-next" type="button" disabled>
+                다음
+              </button>
+            </div>
+          </div>
+
+          <!-- STEP 2: 식습관 (총 25점) -->
+          <div class="step hidden" data-step="2">
+            <h2 class="section-title mt24">
+              <img
+                src="https://i.imgur.com/OkWR7VZ.png"
+                alt="식습관 아이콘"
+                class="icon-step"
+              />
+              식습관 <span class="muted">(총 25점)</span>
+            </h2>
+
+            <div class="q">
+              <p>하루에 채소나 과일을 얼마나 섭취하시나요?</p>
+              <label
+                ><input type="radio" name="diet_veg" value="0" required /> 거의
+                먹지 않는다</label
+              >
+              <label
+                ><input type="radio" name="diet_veg" value="3" /> 하루
+                1회</label
+              >
+              <label
+                ><input type="radio" name="diet_veg" value="5" /> 하루 2회
+                이상</label
+              >
+            </div>
+
+            <div class="q">
+              <p>단백질(육류, 달걀, 콩류 등)을 얼마나 자주 섭취하시나요?</p>
+              <label
+                ><input type="radio" name="diet_protein" value="0" required />
+                거의 안 먹는다</label
+              >
+              <label
+                ><input type="radio" name="diet_protein" value="3" /> 하루
+                1회</label
+              >
+              <label
+                ><input type="radio" name="diet_protein" value="5" /> 하루 2회
+                이상</label
+              >
+            </div>
+
+            <div class="q">
+              <p>
+                가공식품(패스트푸드, 인스턴트, 과자 등)을 얼마나 자주
+                섭취하시나요?
+              </p>
+              <label
+                ><input type="radio" name="diet_processed" value="0" required />
+                주 3회 이상</label
+              >
+              <label
+                ><input type="radio" name="diet_processed" value="3" /> 주
+                1~2회</label
+              >
+              <label
+                ><input type="radio" name="diet_processed" value="5" /> 거의 안
+                먹는다</label
+              >
+            </div>
+
+            <div class="q">
+              <p>야식이나 늦은 시간 식사를 자주 하시나요?</p>
+              <label
+                ><input type="radio" name="diet_late" value="0" required /> 자주
+                한다 (거의 매일)</label
+              >
+              <label
+                ><input type="radio" name="diet_late" value="3" /> 가끔 한다
+                (주1-2회)</label
+              >
+              <label
+                ><input type="radio" name="diet_late" value="5" /> 거의 안 한다
+              </label>
+            </div>
+
+            <div class="q">
+              <p>하루에 물을 얼마나 마시나요?</p>
+              <label
+                ><input type="radio" name="diet_water" value="0" required /> 1L
+                미만</label
+              >
+              <label
+                ><input type="radio" name="diet_water" value="3" /> 1~2L</label
+              >
+              <label
+                ><input type="radio" name="diet_water" value="5" /> 2L
+                이상</label
+              >
+            </div>
+
+            <div class="actions">
+              <button class="btn-primary js-next" type="button" disabled>
+                다음
+              </button>
+            </div>
+          </div>
+
+          <!-- STEP 3: 신체활동 (총 25점) -->
+          <div class="step hidden" data-step="3">
+            <h2 class="section-title mt24">
+              <img
+                src="https://i.imgur.com/hpdCEBZ.png"
+                alt="신체활동 아이콘"
+                class="icon-step"
+              />
+              신체활동 <span class="muted">(총 25점)</span>
+            </h2>
+
+            <div class="q">
+              <p>일주일 동안 총 운동 시간은 얼마나 되나요?</p>
+              <label
+                ><input type="radio" name="act_minutes" value="0" required />
+                전혀 하지 않는다</label
+              >
+              <label
+                ><input type="radio" name="act_minutes" value="3" /> 주
+                1~2회(30~60분)</label
+              >
+              <label
+                ><input type="radio" name="act_minutes" value="5" /> 주 3회
+                이상(150분 이상)</label
+              >
+            </div>
+
+            <div class="q">
+              <p>근력운동(웨이트, 필라테스 등)을 주 몇 회 하시나요?</p>
+              <label
+                ><input type="radio" name="act_strength" value="0" required />
+                전혀 안 함</label
+              >
+              <label
+                ><input type="radio" name="act_strength" value="3" /> 주
+                1회</label
+              >
+              <label
+                ><input type="radio" name="act_strength" value="5" /> 주 2회
+                이상</label
+              >
+            </div>
+
+            <div class="q">
+              <p>하루 평균 앉아있는 시간(좌식시간)은 얼마나 되나요?</p>
+              <label
+                ><input type="radio" name="act_sitting" value="0" required />
+                9시간 이상</label
+              >
+              <label
+                ><input type="radio" name="act_sitting" value="3" />
+                5~8시간</label
+              >
+              <label
+                ><input type="radio" name="act_sitting" value="5" /> 4시간
+                이하</label
+              >
+            </div>
+
+            <div class="actions">
+              <button class="btn-primary js-next" type="button" disabled>
+                다음
+              </button>
+            </div>
+          </div>
+
+          <!-- STEP 4: 수면 (총 25점) -->
+          <div class="step hidden" data-step="4">
+            <h2 class="section-title mt24">
+              <img
+                src="https://i.imgur.com/HJCRUEb.png"
+                alt="수면 아이콘"
+                class="icon-step"
+              />
+              수면 <span class="muted">(총 25점)</span>
+            </h2>
+            <div class="q">
+              <p>평균적으로 몇 시간 주무시나요?</p>
+              <label
+                ><input type="radio" name="sleep_hours" value="0" required />
+                5시간 이하</label
+              >
+              <label
+                ><input type="radio" name="sleep_hours" value="3" />
+                6~7시간</label
+              >
+              <label
+                ><input type="radio" name="sleep_hours" value="5" /> 8시간
+                이상</label
+              >
+            </div>
+
+            <div class="q">
+              <p>잠드는 시간과 기상 시간이 일정한 편인가요?</p>
+              <label
+                ><input type="radio" name="sleep_regular" value="0" required />
+                매우 불규칙하다</label
+              >
+              <label
+                ><input type="radio" name="sleep_regular" value="3" /> 약간
+                일정하다</label
+              >
+              <label
+                ><input type="radio" name="sleep_regular" value="5" /> 매우
+                규칙적이다</label
+              >
+            </div>
+
+            <div class="actions">
+              <button class="btn-primary js-next" type="button" disabled>
+                다음
+              </button>
+            </div>
+          </div>
+
+          <!-- STEP 5: 스트레스 (총 25점) -->
+          <div class="step hidden" data-step="5">
+            <h2 class="section-title mt24">
+              <img
+                src="https://i.imgur.com/HMcSyeU.png"
+                alt="스트레스 아이콘"
+                class="icon-step"
+              />
+              스트레스 <span class="muted">(총 25점)</span>
+            </h2>
+
+            <div class="q">
+              <p>지난 2주간 전반적인 스트레스 수준은 어떠했나요?</p>
+              <label
+                ><input type="radio" name="stress_level" value="0" required />
+                매우 높다</label
+              >
+              <label
+                ><input type="radio" name="stress_level" value="3" />
+                보통이다</label
+              >
+              <label
+                ><input type="radio" name="stress_level" value="5" />
+                낮다</label
+              >
+            </div>
+
+            <div class="q">
+              <p>호흡/명상/산책 등으로 스트레스를 관리했나요?</p>
+              <label
+                ><input type="radio" name="stress_manage" value="0" required />
+                거의 안 했다</label
+              >
+              <label
+                ><input type="radio" name="stress_manage" value="3" /> 가끔
+                했다</label
+              >
+              <label
+                ><input type="radio" name="stress_manage" value="5" />
+                규칙적으로 했다</label
+              >
+            </div>
+
+            <div class="q">
+              <p>취침 1시간 전 스크린 사용(휴대폰/노트북)을 줄이나요?</p>
+              <label
+                ><input type="radio" name="stress_screen" value="0" required />
+                줄이지 않는다</label
+              >
+              <label
+                ><input type="radio" name="stress_screen" value="3" /> 가끔
+                줄인다</label
+              >
+              <label
+                ><input type="radio" name="stress_screen" value="5" /> 거의
+                사용하지 않는다</label
+              >
+            </div>
+
+            <div class="actions">
+              <button id="btnSubmit" type="submit" class="btn-primary" disabled>
+                결과 보기
+              </button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <!-- =======================
+           결과 화면
+           ======================= -->
+      <section id="result" class="result hidden">
+        <div class="grid">
+          <div class="card">
+            <h2 class="section-title">나의 딜레이지 결과</h2>
+
+            <p id="summaryText" class="lead"></p>
+            <p id="peerMeta" class="muted tiny"></p>
+
+            <canvas id="barChart" height="220" class="mt16"></canvas>
+
+            <div class="kv mt16">
+              <div><b>식습관</b> <span id="kvdiet"></span></div>
+              <div><b>신체활동</b> <span id="kvact"></span></div>
+              <div><b>수면</b> <span id="kvsleep"></span></div>
+              <div><b>스트레스</b> <span id="kvstress"></span></div>
+            </div>
+            <p class="tiny muted" style="text-align: center; margin-top: 8px">
+              * 각 영역은 25점 만점 기준입니다.
+            </p>
+
+            <div class="actions mt24">
+              <button id="retry" class="btn-ghost" type="button">
+                다시 하기
+              </button>
+            </div>
+          </div>
+
+          <!-- 오른쪽 카드 (영역별 점수) -->
+          <div class="card card-radar" id="radarCard">
+            <h2 class="section-title">영역별 점수</h2>
+            <canvas id="radarChart" height="320"></canvas>
+          </div>
+        </div>
+      </section>
+      <!-- 로딩 오버레이 -->
+      <div id="loading" class="loading hidden" aria-live="polite">
+        <div class="loading-card">
+          <img src="https://i.imgur.com/L0dlTeZ.png" alt="로딩 일러스트" />
+          <p class="loading-title">점수를 계산하는 중이에요…</p>
+          <p class="loading-caption">잠시만 기다려 주세요.</p>
         </div>
       </div>
-    </section>
-  </main>
+      <!-- 저속노화 더 알아보기: 추천 영상 -->
+      <section id="learnMore" class="card hidden">
+        <h2 class="section-title">저속노화 더 알아보기</h2>
+        <p class="lead">카테고리를 선택해 유용한 영상을 확인해 보세요.</p>
 
-  <footer class="site-footer">© Delay+Age</footer>
-  <script src="script.js"></script>
-</body>
+        <!-- 식습관 -->
+        <div class="lm-category">
+          <h3 class="lm-title">
+            <img
+              src="https://i.imgur.com/OkWR7VZ.png"
+              alt="식습관 아이콘"
+              class="icon-step"
+            />
+            식습관
+          </h3>
+          <div class="video-grid">
+            <a
+              class="video-card"
+              href="https://www.youtube.com/watch?v=5wM_e0VVv9M"
+              target="_blank"
+              rel="noopener"
+            >
+              <div class="thumb" data-yt="5wM_e0VVv9M"></div>
+              <div class="meta">
+                <b>건강하게 늙지 않는 식사법</b><span>바로 보기 ▶</span>
+              </div>
+            </a>
+            <a
+              class="video-card"
+              href="https://www.youtube.com/watch?v=hY3Behe52bk"
+              target="_blank"
+              rel="noopener"
+            >
+              <div class="thumb" data-yt="hY3Behe52bk"></div>
+              <div class="meta">
+                <b>아침 식사의 중요성</b><span>바로 보기 ▶</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- 신체활동 -->
+        <div class="lm-category">
+          <h3 class="lm-title">
+            <img
+              src="https://i.imgur.com/hpdCEBZ.png"
+              alt="신체활동 아이콘"
+              class="icon-step"
+            />
+            신체활동
+          </h3>
+          <div class="video-grid">
+            <a
+              class="video-card"
+              href="https://www.youtube.com/watch?v=CGE31CYSjHU"
+              target="_blank"
+              rel="noopener"
+            >
+              <div class="thumb" data-yt="CGE31CYSjHU"></div>
+              <div class="meta">
+                <b>근력운동으로 젊음을 지키는 방법</b><span>바로 보기 ▶</span>
+              </div>
+            </a>
+            <a
+              class="video-card"
+              href="https://www.youtube.com/watch?v=pYoKLuqNdmc"
+              target="_blank"
+              rel="noopener"
+            >
+              <div class="thumb" data-yt="pYoKLuqNdmc"></div>
+              <div class="meta">
+                <b>달리기로 순환력 키우기</b><span>바로 보기 ▶</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- 수면 -->
+        <div class="lm-category">
+          <h3 class="lm-title">
+            <img
+              src="https://i.imgur.com/HJCRUEb.png"
+              alt="수면 아이콘"
+              class="icon-step"
+            />
+            수면
+          </h3>
+          <div class="video-grid">
+            <a
+              class="video-card"
+              href="https://www.youtube.com/watch?v=ei5RL0vlHgs"
+              target="_blank"
+              rel="noopener"
+            >
+              <div class="thumb" data-yt="ei5RL0vlHgs"></div>
+              <div class="meta">
+                <b>수면이 노화에 미치는 영향</b><span>바로 보기 ▶</span>
+              </div>
+            </a>
+            <a
+              class="video-card"
+              href="https://www.youtube.com/watch?v=2p2RQWR11So"
+              target="_blank"
+              rel="noopener"
+            >
+              <div class="thumb" data-yt="2p2RQWR11So"></div>
+              <div class="meta">
+                <b>숙면 루틴 만들기</b><span>바로 보기 ▶</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- 스트레스 -->
+        <div class="lm-category">
+          <h3 class="lm-title">
+            <img
+              src="https://i.imgur.com/HMcSyeU.png"
+              alt="스트레스 아이콘"
+              class="icon-step"
+            />
+            스트레스
+          </h3>
+          <div class="video-grid">
+            <a
+              class="video-card"
+              href="https://www.youtube.com/watch?v=_8a_C2kZzPs"
+              target="_blank"
+              rel="noopener"
+            >
+              <div class="thumb" data-yt="_8a_C2kZzPs"></div>
+              <div class="meta">
+                <b>스트레스가 노화를 부르는 이유</b><span>바로 보기 ▶</span>
+              </div>
+            </a>
+            <a
+              class="video-card"
+              href="https://www.youtube.com/watch?v=07uBjkGwcco"
+              target="_blank"
+              rel="noopener"
+            >
+              <div class="thumb" data-yt="07uBjkGwcco"></div>
+              <div class="meta">
+                <b>멈춰 있는 시간의 함정</b><span>바로 보기 ▶</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="actions mt24">
+          <button id="btnBackToResult" class="btn-ghost" type="button">
+            결과로 돌아가기
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">© DelayAge</footer>
+    <script src="script.js"></script>
+  </body>
 </html>
