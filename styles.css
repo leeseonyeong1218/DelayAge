@@ -380,7 +380,7 @@ canvas {
 /* 거대한 DelayAge */
 .hero-brand-outline {
   position: absolute;
-  top: 15vh;
+  top: 30vh;
   left: 50%;
   transform: translateX(-50%);
   margin: 0;
@@ -396,8 +396,8 @@ canvas {
 }
 @media (max-width: 768px) {
   .hero-brand-outline {
-    font-size: clamp(60px, 12vw, 120px);
-    top: 10vh;
+    font-size: clamp(30px, 6vw, 60px);
+    top: 20vh;
   }
 }
 .site-header h1,
