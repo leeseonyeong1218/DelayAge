@@ -13,10 +13,6 @@
   font-weight: 700;
   font-display: swap;
 }
-
-/* =========================================
-   Base Tokens
-========================================= */
 :root {
   --green: #22c55e;
   --mint: #10b981;
@@ -41,15 +37,15 @@ body {
 }
 
 header {
-  background-color: #000; /* 전체 배경 블랙 */
-  color: #fff; /* 기본 글자색 흰색 */
+  background-color: #000;
+  color: #fff;
   text-align: center;
   padding: 60px 20px;
 }
 
 /* DelayAge 제목 */
 header h1 {
-  color: #fff; /* 흰색 */
+  color: #fff;
   font-size: 2.5rem;
   font-weight: 800;
   margin-bottom: 8px;
@@ -57,7 +53,7 @@ header h1 {
 
 /* 저속노화(slow aging) 자가진단 */
 header p {
-  color: #cccccc; /* 밝은 그레이 (#ccc 또는 #bbb) */
+  color: #cccccc; 
   font-size: 1rem;
   font-weight: 400;
   margin: 0;
@@ -113,14 +109,13 @@ header p {
   top: 0;
   z-index: 10;
   display: flex;
-  justify-content: center; /* 중앙 정렬 */
-  margin-bottom: 40px; /* 설문 상자와 여백 */
-  background: transparent; /* 배경 제거 */
+  justify-content: center;
+  margin-bottom: 40px;
+  background: transparent; 
 }
 
-/* .container 너비에 맞춘 게이지 */
 .progress-inner {
-  width: min(960px, 92vw); /* 설문 카드와 동일한 폭 */
+  width: min(960px, 92vw); 
   height: 8px;
   background: #e9fff4;
   border-radius: 8px;
@@ -136,8 +131,6 @@ header p {
   transition: width 2s ease;
   border-radius: 8px;
 }
-
-/* ✅ 고양이 이미지 추가 + 통통 튀는 애니메이션 */
 .progress-bar::after {
   content: "";
   position: absolute;
@@ -152,8 +145,6 @@ header p {
   background-position: center;
   animation: bounceCat 1.2s ease-in-out infinite;
 }
-
-/* 🐾 위아래로 통통 튀는 애니메이션 */
 @keyframes bounceCat {
   0%,
   100% {
@@ -168,22 +159,18 @@ header p {
   text-align: center;
   margin-top: 24px;
 }
-/* 모든 버튼 공통 애니메이션 */
 button,
 .btn-primary,
 .btn-ghost {
   transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.2s ease;
 }
-
-/* 기본 상태에서 약간의 입체감 */
 button:hover,
 .btn-primary:hover,
 .btn-ghost:hover {
-  transform: scale(1.05); /* 살짝 커짐 */
-  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.35); /* 은은한 그림자 강조 */
+  transform: scale(1.05); 
+  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.35);
 }
 
-/* 클릭 시 눌리는 효과 */
 button:active,
 .btn-primary:active,
 .btn-ghost:active {
@@ -203,15 +190,15 @@ button:active,
   transition: opacity 0.15s ease, transform 0.05s ease;
 }
 .start-hero-dark .btn-primary {
-  padding: 20px 48px; /* 버튼 크기 키움 */
-  font-size: 20px; /* 글자 크기 확대 */
-  border-radius: 50px; /* 살짝 더 둥글게 */
-  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35); /* 그림자 강화 */
+  padding: 20px 48px;
+  font-size: 20px; 
+  border-radius: 50px; 
+  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35); 
   transition: transform 0.2s ease;
 }
 
 .start-hero-dark .btn-primary:hover {
-  transform: scale(1.05); /* 호버 시 살짝 커지는 효과 */
+  transform: scale(1.05); 
 }
 .btn-primary:active {
   transform: translateY(1px);
@@ -252,11 +239,9 @@ canvas {
   display: block;
   max-width: 100%;
 }
-
-/* 입력 필드 */
 .grid2 {
   display: grid;
-  grid-template-columns: 1fr; /* 한 줄로만 배치 */
+  grid-template-columns: 1fr; 
   gap: 24px;
 }
 /* 반응형 조건 제거 */
@@ -454,24 +439,24 @@ canvas {
 /* ===== Confetti ===== */
 .confetti-canvas {
   position: fixed;
-  inset: 0; /* 화면 전체 */
+  inset: 0; 
   width: 100vw;
   height: 100vh;
-  pointer-events: none; /* 클릭 방해 X */
-  z-index: 9999; /* 최상단에 */
+  pointer-events: none;
+  z-index: 9999;
 }
 .section-title {
   display: flex;
   align-items: center;
-  gap: 8px; /* 아이콘과 텍스트 간격 */
-  margin: 0 0 10px !important; /* 모든 섹션 동일 간격 적용 */
+  gap: 8px; 
+  margin: 0 0 10px !important;
   font-size: 18px;
   font-weight: 800;
   letter-spacing: -0.01em;
 }
 
 .section-title .icon-step {
-  width: 28px; /* 필요에 맞게 조정 */
+  width: 28px; 
   height: auto;
   vertical-align: middle;
 }
