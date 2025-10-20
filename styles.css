@@ -408,7 +408,6 @@ canvas {
   width: min(560px, 68vw);
   height: auto;
   margin: clamp(150px, 30vh, 260px) auto 0;
-  filter: drop-shadow(0 22px 60px rgba(0, 0, 0, 0.45));
 }
 
 /* 설명 & 버튼 */
