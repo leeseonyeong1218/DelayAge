@@ -380,7 +380,7 @@ canvas {
 /* 거대한 DelayAge */
 .hero-brand-outline {
   position: absolute;
-  top: 9vh;
+  top: 15vh;
   left: 50%;
   transform: translateX(-50%);
   margin: 0;
@@ -393,6 +393,12 @@ canvas {
   font-size: clamp(80px, 16vw, 200px);
   font-family: "SchoolSafetyWave", sans-serif; /* 폰트 적용 */
   font-weight: 700;
+}
+@media (max-width: 768px) {
+  .hero-brand-outline {
+    font-size: clamp(60px, 12vw, 120px);
+    top: 10vh;
+  }
 }
 .site-header h1,
 .site-header .title {
