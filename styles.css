@@ -385,13 +385,13 @@ canvas {
   transform: translateX(-50%);
   margin: 0;
   line-height: 1;
-  z-index: 0;
+  z-index: 1;
   font-weight: 900;
   letter-spacing: -0.02em;
-  color: #111;
-  mix-blend-mode: normal;
+  color: #1a1a1a;
+  mix-blend-mode: multiply;
   font-size: clamp(80px, 16vw, 200px);
-  font-family: "SchoolSafetyWave", sans-serif;
+  font-family: "SchoolSafetyWave", sans-serif; /* 폰트 적용 */
   font-weight: 700;
 }
 @media (max-width: 768px) {
@@ -409,32 +409,15 @@ canvas {
   font-weight: 700;
   color: #4ade80;
 }
-/* 이미지: start-hero-dark 안 절대위치로 크게 */
+/* 고양이 이미지 */
 .hero-illustration {
-  position: absolute;
-  top: 34%;
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative;
+  z-index: 3;
+  display: block;
   width: 100%;
   max-width: none;
   height: auto;
-  z-index: 2;
-  margin: 0;
-  display: block;
-}
-
-/* DelayAge 큰 글자는 이미지 뒤로 */
-.hero-brand-outline {
-  z-index: 1 !important;
-}
-
-/* 설명/버튼 레이어는 이미지 위로 */
-.hero-layer {
-  position: relative;
-  z-index: 4;
-  width: min(1120px, 92vw);
-  text-align: center;
-  padding-bottom: 6vh;
+  margin: 260px auto 0;
 }
 
 /* 설명 & 버튼 */
