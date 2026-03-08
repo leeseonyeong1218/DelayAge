@@ -414,9 +414,9 @@ canvas {
   position: relative;
   z-index: 3;
   display: block;
-  width: min(560px, 68vw);
+  width: min(380px, 48vw);
   height: auto;
-  margin: clamp(150px, 30vh, 260px) auto 0;
+  margin: clamp(120px, 22vh, 200px) auto 0;
 }
 
 /* 설명 & 버튼 */
