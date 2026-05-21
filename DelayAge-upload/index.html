@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>DELAGE · 딜레이지</title>
+  <style>
+    @font-face {
+      font-family: 'TMoneyDungunbaram';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/TmoneyRoundWindRegular.woff') format('woff');
+      font-weight: 400;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'TMoneyDungunbaram';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/TmoneyRoundWindExtraBold.woff') format('woff');
+      font-weight: 800;
+      font-display: swap;
+    }
+  </style>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<div id="phone">
+
+  <!-- ============================================================
+       SCREEN: 메인
+  ============================================================ -->
+  <div id="s-main" class="screen active">
+    <div class="main-logo-wrap">
+      <img src="image/Artboard 8@300x.png" class="main-logo-img" alt="DELAGE 딜레이지" />
+    </div>
+    <div class="main-chars-area">
+      <img src="image/e656c8f2-89b7-4663-9f95-e550e53c7a28.png" class="main-chars-group" alt="" />
+    </div>
+    <div class="main-footer">
+      <button id="btn-start" class="btn-start">START</button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCREEN: 닉네임 입력
+  ============================================================ -->
+  <div id="s-nick" class="screen hidden arch-screen">
+    <div class="black-top"></div>
+    <div class="arch-card purple-card">
+      <div class="card-face">
+        <div class="card-eye"><div class="card-pupil"></div></div>
+        <div class="card-eye"><div class="card-pupil"></div></div>
+      </div>
+      <div class="arch-body">
+        <h2 class="arch-title">안녕하세요:)<br>먼저 이름을 알려주세요.</h2>
+        <p class="arch-hint">한글 최대 4자 / 공백, 숫자, 특수기호 불가</p>
+        <input id="nick-input" type="text" class="arch-input"
+               placeholder="닉네임을 입력해 주세요" maxlength="4" />
+      </div>
+      <div class="arch-btn-area purple-btn-area">
+        <button id="btn-nick-next" class="btn-proceed" disabled>계속하기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCREEN: 기본 정보 입력
+  ============================================================ -->
+  <div id="s-info" class="screen hidden arch-screen">
+    <div class="black-top"></div>
+    <div class="arch-card purple-card">
+      <div class="card-face">
+        <div class="card-eye"><div class="card-pupil"></div></div>
+        <div class="card-eye"><div class="card-pupil"></div></div>
+      </div>
+      <div class="arch-body">
+        <h2 class="arch-title">통계에 필요한 기본 정보를<br>입력해주세요.</h2>
+        <p class="arch-hint">맞춤형 피드백에 도움이 됩니다.</p>
+        <div class="field-wrap">
+          <label class="field-lbl">연령대</label>
+          <div class="sel-box">
+            <select id="sel-age" class="arch-select">
+              <option value="">선택하세요</option>
+              <option value="10">10대 이하</option>
+              <option value="20">20대</option>
+              <option value="30">30대</option>
+              <option value="40">40대</option>
+              <option value="50">50대 이상</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-wrap">
+          <label class="field-lbl">성별</label>
+          <div class="sel-box">
+            <select id="sel-gender" class="arch-select">
+              <option value="">선택하세요</option>
+              <option value="1">남성</option>
+              <option value="2">여성</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="arch-btn-area purple-btn-area">
+        <button id="btn-info-next" class="btn-proceed" disabled>계속하기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCREEN: 설문 (4단계)
+  ============================================================ -->
+  <div id="s-survey" class="screen hidden">
+
+    <!-- 게이지 바 (상단 고정) -->
+    <div class="gauge-strip">
+      <div class="gauge-inner">
+        <div class="gauge-track">
+          <div class="gauge-fill" id="gauge-fill"></div>
+        </div>
+        <div class="gauge-node" id="gn1">
+          <img src="image/Artboard 4@300x.png" alt="식습관" />
+        </div>
+        <div class="gauge-node" id="gn2">
+          <img src="image/Artboard 6@300x.png" alt="신체활동" />
+        </div>
+        <div class="gauge-node" id="gn3">
+          <img src="image/Artboard 5@300x.png" alt="수면" />
+        </div>
+        <div class="gauge-node" id="gn4">
+          <img src="image/Artboard 7@300x.png" alt="스트레스" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 1: 식습관 (주황) -->
+    <div id="step-1" class="survey-step diet-step" data-step="1">
+      <div class="step-scroll">
+        <div class="step-card-outer">
+          <div class="step-card">
+            <div class="step-hdr">
+              <div class="step-icon-wrap diet-icon">
+                <img src="image/Artboard 4@300x.png" alt="" />
+              </div>
+              <div class="step-hdr-text">
+                <h3 class="step-name">식습관</h3>
+                <p class="step-desc">평소 식생활 습관에 대해 답해 주세요.</p>
+              </div>
+              <span class="step-pts diet-pts">총 25점</span>
+            </div>
+            <div class="q-block" data-q="diet_veg">
+              <p class="q-txt">하루에 채소나 과일을 얼마나 섭취하시나요?</p>
+              <button class="opt" data-val="0">거의 먹지 않는다</button>
+              <button class="opt" data-val="3">하루 1회</button>
+              <button class="opt" data-val="5">하루 2회 이상</button>
+            </div>
+            <div class="q-block" data-q="diet_protein">
+              <p class="q-txt">단백질(육류, 달걀, 콩류 등)을 얼마나 자주 섭취하시나요?</p>
+              <button class="opt" data-val="0">거의 안 먹는다</button>
+              <button class="opt" data-val="3">하루 1회</button>
+              <button class="opt" data-val="5">하루 2회 이상</button>
+            </div>
+            <div class="q-block" data-q="diet_processed">
+              <p class="q-txt">가공식품(패스트푸드, 인스턴트, 과자 등)을 얼마나 자주 섭취하시나요?</p>
+              <button class="opt" data-val="0">주 3회 이상</button>
+              <button class="opt" data-val="3">주 1~2회</button>
+              <button class="opt" data-val="5">거의 안 먹는다</button>
+            </div>
+            <div class="q-block" data-q="diet_late">
+              <p class="q-txt">야식이나 늦은 시간 식사를 자주 하시나요?</p>
+              <button class="opt" data-val="0">자주 한다 (거의 매일)</button>
+              <button class="opt" data-val="3">가끔 한다 (주 1~2회)</button>
+              <button class="opt" data-val="5">거의 안 한다</button>
+            </div>
+            <div class="q-block" data-q="diet_water">
+              <p class="q-txt">하루에 물을 얼마나 마시나요?</p>
+              <button class="opt" data-val="0">1L 미만</button>
+              <button class="opt" data-val="3">1~2L</button>
+              <button class="opt" data-val="5">2L 이상</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="step-foot diet-foot">
+        <button class="btn-next js-next diet-next-btn" disabled>다음 단계로</button>
+      </div>
+    </div>
+
+    <!-- Step 2: 신체활동 (파랑) -->
+    <div id="step-2" class="survey-step activity-step hidden" data-step="2">
+      <div class="step-scroll">
+        <div class="step-card-outer">
+          <div class="step-card">
+            <div class="step-hdr">
+              <div class="step-icon-wrap activity-icon">
+                <img src="image/Artboard 6@300x.png" alt="" />
+              </div>
+              <div class="step-hdr-text">
+                <h3 class="step-name">신체활동</h3>
+                <p class="step-desc">평소 운동 및 신체 활동에 대해 답해 주세요.</p>
+              </div>
+              <span class="step-pts activity-pts">총 25점</span>
+            </div>
+            <div class="q-block" data-q="act_minutes">
+              <p class="q-txt">일주일 동안 총 운동 시간은 얼마나 되나요?</p>
+              <button class="opt" data-val="0">전혀 하지 않는다</button>
+              <button class="opt" data-val="3">주 1~2회 (30~60분)</button>
+              <button class="opt" data-val="5">주 3회 이상 (150분 이상)</button>
+            </div>
+            <div class="q-block" data-q="act_strength">
+              <p class="q-txt">근력운동(웨이트, 필라테스 등)을 주 몇 회 하시나요?</p>
+              <button class="opt" data-val="0">전혀 안 함</button>
+              <button class="opt" data-val="3">주 1회</button>
+              <button class="opt" data-val="5">주 2회 이상</button>
+            </div>
+            <div class="q-block" data-q="act_sitting">
+              <p class="q-txt">하루 평균 앉아있는 시간(좌식시간)은 얼마나 되나요?</p>
+              <button class="opt" data-val="0">9시간 이상</button>
+              <button class="opt" data-val="3">5~8시간</button>
+              <button class="opt" data-val="5">4시간 이하</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="step-foot activity-foot">
+        <button class="btn-next js-next activity-next-btn" disabled>다음 단계로</button>
+      </div>
+    </div>
+
+    <!-- Step 3: 수면 (보라) -->
+    <div id="step-3" class="survey-step sleep-step hidden" data-step="3">
+      <div class="step-scroll">
+        <div class="step-card-outer">
+          <div class="step-card">
+            <div class="step-hdr">
+              <div class="step-icon-wrap sleep-icon">
+                <img src="image/Artboard 5@300x.png" alt="" />
+              </div>
+              <div class="step-hdr-text">
+                <h3 class="step-name">수면</h3>
+                <p class="step-desc">평소 수면 습관에 대해 답해 주세요.</p>
+              </div>
+              <span class="step-pts sleep-pts">총 25점</span>
+            </div>
+            <div class="q-block" data-q="sleep_hours">
+              <p class="q-txt">평균적으로 몇 시간 주무시나요?</p>
+              <button class="opt" data-val="0">5시간 이하</button>
+              <button class="opt" data-val="3">6~7시간</button>
+              <button class="opt" data-val="5">8시간 이상</button>
+            </div>
+            <div class="q-block" data-q="sleep_regular">
+              <p class="q-txt">잠드는 시간과 기상 시간이 일정한 편인가요?</p>
+              <button class="opt" data-val="0">매우 불규칙하다</button>
+              <button class="opt" data-val="3">약간 일정하다</button>
+              <button class="opt" data-val="5">매우 규칙적이다</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="step-foot sleep-foot">
+        <button class="btn-next js-next sleep-next-btn" disabled>다음 단계로</button>
+      </div>
+    </div>
+
+    <!-- Step 4: 스트레스 (노랑) -->
+    <div id="step-4" class="survey-step stress-step hidden" data-step="4">
+      <div class="step-scroll">
+        <div class="step-card-outer">
+          <div class="step-card">
+            <div class="step-hdr">
+              <div class="step-icon-wrap stress-icon">
+                <img src="image/Artboard 7@300x.png" alt="" />
+              </div>
+              <div class="step-hdr-text">
+                <h3 class="step-name">스트레스</h3>
+                <p class="step-desc">스트레스 관리 습관에 대해 답해 주세요.</p>
+              </div>
+              <span class="step-pts stress-pts">총 25점</span>
+            </div>
+            <div class="q-block" data-q="stress_level">
+              <p class="q-txt">지난 2주간 전반적인 스트레스 수준은 어떠했나요?</p>
+              <button class="opt" data-val="0">매우 높다</button>
+              <button class="opt" data-val="3">보통이다</button>
+              <button class="opt" data-val="5">낮다</button>
+            </div>
+            <div class="q-block" data-q="stress_manage">
+              <p class="q-txt">호흡/명상/산책 등으로 스트레스를 관리했나요?</p>
+              <button class="opt" data-val="0">거의 안 했다</button>
+              <button class="opt" data-val="3">가끔 했다</button>
+              <button class="opt" data-val="5">규칙적으로 했다</button>
+            </div>
+            <div class="q-block" data-q="stress_screen">
+              <p class="q-txt">취침 전 스크린 사용(휴대폰/노트북) 시간은 얼마나 되나요?</p>
+              <button class="opt" data-val="0">3시간 이상</button>
+              <button class="opt" data-val="3">1~2시간</button>
+              <button class="opt" data-val="5">거의 사용하지 않는다</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="step-foot stress-foot">
+        <button class="btn-next js-submit stress-next-btn" disabled>결과 보기</button>
+      </div>
+    </div>
+
+  </div><!-- /s-survey -->
+
+  <!-- ============================================================
+       OVERLAY: 로딩
+  ============================================================ -->
+  <div id="s-loading" class="screen hidden loading-overlay">
+    <div class="loading-popup">
+      <img id="loading-char" src="image/Artboard 4@300x.png" alt="" class="loading-char-img" />
+      <p class="loading-main">점수를 계산하는 중이에요...</p>
+      <p class="loading-sub">잠시만 기다려 주세요</p>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCREEN: 결과
+  ============================================================ -->
+  <div id="s-result" class="screen hidden">
+    <div class="result-top" id="result-top">
+      <img src="image/Artboard 8@300x.png" class="result-logo" alt="DELAGE" />
+    </div>
+    <div class="result-arch" id="result-arch">
+      <div class="result-medallion-wrap">
+        <div class="result-medallion">
+          <img id="result-char-img" src="" alt="" />
+        </div>
+      </div>
+      <div class="result-card">
+        <h2 class="result-name" id="result-name"></h2>
+        <p class="result-total-txt">당신의 총점은 <strong id="result-total">0</strong>점 입니다</p>
+        <div class="score-table">
+          <div class="score-row">
+            <span class="sc-cat">식습관</span>
+            <span class="sc-val"><strong id="r-diet">0점</strong><small id="r-diet-avg"></small></span>
+          </div>
+          <div class="score-row">
+            <span class="sc-cat">신체활동</span>
+            <span class="sc-val"><strong id="r-act">0점</strong><small id="r-act-avg"></small></span>
+          </div>
+          <div class="score-row">
+            <span class="sc-cat">수면</span>
+            <span class="sc-val"><strong id="r-sleep">0점</strong><small id="r-sleep-avg"></small></span>
+          </div>
+          <div class="score-row">
+            <span class="sc-cat">스트레스</span>
+            <span class="sc-val"><strong id="r-stress">0점</strong><small id="r-stress-avg"></small></span>
+          </div>
+        </div>
+        <p class="result-peer-msg" id="result-peer-msg"></p>
+        <div class="chart-wrap">
+          <canvas id="barChart" height="180"></canvas>
+        </div>
+        <button id="btn-to-custom" class="btn-result-cta">나만의 맞춤 딜레이지 보기</button>
+        <button id="btn-retry" class="btn-result-ghost">다시 하기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCREEN: 나만의 맞춤 딜레이지
+  ============================================================ -->
+  <div id="s-custom" class="screen hidden">
+    <div class="custom-top" id="custom-top">
+      <img src="image/Artboard 8@300x.png" class="custom-logo" alt="DELAGE" />
+    </div>
+    <div class="custom-arch" id="custom-arch">
+      <div class="custom-mini-chars">
+        <img src="image/Artboard 4@300x.png" class="c-mini" alt="" />
+        <img src="image/Artboard 6@300x.png" class="c-mini" alt="" />
+        <img src="image/Artboard 5@300x.png" class="c-mini" alt="" />
+        <img src="image/Artboard 7@300x.png" class="c-mini" alt="" />
+      </div>
+      <div class="custom-card">
+        <h2 class="custom-title">나만의 맞춤 딜레이지</h2>
+        <p class="custom-subtitle" id="custom-subtitle"></p>
+        <div id="custom-feedback-area"></div>
+        <div class="custom-actions">
+          <button id="btn-custom-retry" class="btn-custom-act">결과 다시보기</button>
+          <button id="btn-custom-share" class="btn-custom-act">결과 공유하기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /phone -->
+
+<script src="script.js"></script>
+</body>
+</html>
