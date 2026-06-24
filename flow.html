@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>DelayAge — User Flow</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: #0d0d0d;
+  font-family: -apple-system, 'Apple SD Gothic Neo', sans-serif;
+  padding: 60px 48px;
+  min-width: 1400px;
+}
+
+h1 { color:#AAFF00; font-size:11px; letter-spacing:.2em; text-transform:uppercase; margin-bottom:6px; }
+h2 { color:#fff; font-size:24px; font-weight:700; margin-bottom:52px; }
+
+/* ── LANE WRAPPER ── */
+.lanes {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+}
+
+/* ── COLUMN ── */
+.col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  flex-shrink: 0;
+}
+
+/* ── SCREEN CARD ── */
+.card {
+  width: 160px;
+  border-radius: 14px;
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card.green {
+  background: #AAFF00;
+}
+.card.dark {
+  background: #161616;
+  border: 1.5px solid #2a2a2a;
+}
+.card.accent {
+  background: #0d1f00;
+  border: 1.5px solid #AAFF00;
+}
+.card.step {
+  background: #111;
+  border: 1.5px solid #2d2d2d;
+  width: 150px;
+}
+
+/* card header */
+.card-tag {
+  font-size: 9px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.green .card-tag { color: #1a3300; }
+.dark .card-tag  { color: #AAFF00; }
+.accent .card-tag { color: #AAFF00; }
+.step .card-tag  { color: #555; }
+
+.card-title {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.green .card-title { color: #000; }
+.dark .card-title  { color: #fff; }
+.accent .card-title{ color: #fff; }
+.step .card-title  { color: #fff; }
+
+/* detail list */
+.detail-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-top: 1px solid rgba(255,255,255,.07);
+  padding-top: 10px;
+  margin-top: 2px;
+}
+.green .detail-list { border-top-color: rgba(0,0,0,.12); }
+
+.detail-item {
+  font-size: 10px;
+  line-height: 1.4;
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+}
+.green  .detail-item { color: #1a3300; }
+.dark   .detail-item { color: #888; }
+.accent .detail-item { color: #7ab800; }
+.step   .detail-item { color: #666; }
+
+.detail-item::before {
+  content: '·';
+  flex-shrink: 0;
+  margin-top: 0px;
+}
+
+/* action button mock */
+.btn-mock {
+  background: #AAFF00;
+  color: #000;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 20px;
+  padding: 5px 0;
+  text-align: center;
+  margin-top: 4px;
+}
+.btn-mock.dark-btn {
+  background: #222;
+  color: #AAFF00;
+  border: 1px solid #AAFF00;
+}
+
+/* ── ARROWS ── */
+.arr-h {
+  width: 40px;
+  height: 2px;
+  background: #2a2a2a;
+  position: relative;
+  align-self: center;
+  flex-shrink: 0;
+  margin-top: -20px;
+}
+.arr-h::after {
+  content:'';
+  position:absolute;
+  right:-1px; top:-4px;
+  border:5px solid transparent;
+  border-left:8px solid #2a2a2a;
+}
+.arr-h.g { background:#AAFF00; }
+.arr-h.g::after { border-left-color:#AAFF00; }
+
+.arr-v {
+  width:2px;
+  height:32px;
+  background:#2a2a2a;
+  position:relative;
+  flex-shrink:0;
+}
+.arr-v::after {
+  content:'';
+  position:absolute;
+  bottom:-1px; left:-4px;
+  border:5px solid transparent;
+  border-top:8px solid #2a2a2a;
+}
+.arr-v.g { background:#AAFF00; }
+.arr-v.g::after { border-top-color:#AAFF00; }
+
+/* ── STEP GROUP BOX ── */
+.step-box {
+  border: 1px dashed #2a2a2a;
+  border-radius: 18px;
+  padding: 20px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.step-box-title {
+  color: #333;
+  font-size: 9px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  align-self: flex-start;
+}
+
+.step-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+}
+
+/* ── SCORE ROW ── */
+.score-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 48px;
+  padding-top: 36px;
+  border-top: 1px solid #1e1e1e;
+}
+.score-label { color:#444; font-size:11px; margin-right:4px; }
+.score-chip {
+  background:#1a1a1a;
+  border:1px solid #2a2a2a;
+  color:#888;
+  font-size:11px;
+  padding:5px 14px;
+  border-radius:8px;
+}
+.score-total {
+  background:#0d1f00;
+  border:1.5px solid #AAFF00;
+  color:#AAFF00;
+  font-size:13px;
+  font-weight:700;
+  padding:5px 18px;
+  border-radius:8px;
+}
+.score-op { color:#333; font-size:13px; }
+</style>
+</head>
+<body>
+
+<h1>DelayAge</h1>
+<h2>User Flow</h2>
+
+<div class="lanes">
+
+  <!-- 1. 시작 -->
+  <div class="col">
+    <div class="card green">
+      <div class="card-tag">Screen 01</div>
+      <div class="card-title">시작화면</div>
+      <div class="detail-list">
+        <div class="detail-item">브랜드 로고 + 슬로건</div>
+        <div class="detail-item">서비스 한 줄 소개</div>
+        <div class="detail-item">장식 도형 애니메이션</div>
+      </div>
+      <div class="btn-mock">설문 시작하기</div>
+    </div>
+  </div>
+
+  <div class="arr-h g"></div>
+
+  <!-- 2. 기본정보 -->
+  <div class="col">
+    <div class="card dark">
+      <div class="card-tag">Screen 02</div>
+      <div class="card-title">기본정보 입력</div>
+      <div class="detail-list">
+        <div class="detail-item">나이 선택 (드롭다운)</div>
+        <div class="detail-item">성별 선택 (드롭다운)</div>
+        <div class="detail-item">결과 비교 기준값 수집</div>
+      </div>
+      <div class="btn-mock dark-btn">다음 단계로</div>
+    </div>
+  </div>
+
+  <div class="arr-h g"></div>
+
+  <!-- 3. 설문 STEP 그룹 -->
+  <div class="col">
+    <div class="step-box">
+      <div class="step-box-title">설문 — 4영역 / 총 13문항</div>
+      <div class="step-row">
+
+        <div class="card step">
+          <div class="card-tag">STEP 1</div>
+          <div class="card-title">식습관</div>
+          <div class="detail-list">
+            <div class="detail-item">채소·과일 섭취 빈도</div>
+            <div class="detail-item">가공식품 섭취 빈도</div>
+            <div class="detail-item">단백질 섭취 빈도</div>
+            <div class="detail-item">최대 25점</div>
+          </div>
+          <div class="btn-mock dark-btn">완료</div>
+        </div>
+
+        <div class="arr-h" style="margin-top:0; align-self:center;"></div>
+
+        <div class="card step">
+          <div class="card-tag">STEP 2</div>
+          <div class="card-title">신체활동</div>
+          <div class="detail-list">
+            <div class="detail-item">주간 운동 시간</div>
+            <div class="detail-item">근력운동 횟수</div>
+            <div class="detail-item">일상 활동량</div>
+            <div class="detail-item">최대 25점</div>
+          </div>
+          <div class="btn-mock dark-btn">완료</div>
+        </div>
+
+        <div class="arr-h" style="margin-top:0; align-self:center;"></div>
+
+        <div class="card step">
+          <div class="card-tag">STEP 3</div>
+          <div class="card-title">수면</div>
+          <div class="detail-list">
+            <div class="detail-item">하루 수면 시간</div>
+            <div class="detail-item">수면 만족도</div>
+            <div class="detail-item">취침 규칙성</div>
+            <div class="detail-item">최대 25점</div>
+          </div>
+          <div class="btn-mock dark-btn">완료</div>
+        </div>
+
+        <div class="arr-h" style="margin-top:0; align-self:center;"></div>
+
+        <div class="card step">
+          <div class="card-tag">STEP 4</div>
+          <div class="card-title">스트레스</div>
+          <div class="detail-list">
+            <div class="detail-item">스트레스 빈도</div>
+            <div class="detail-item">해소 방법 여부</div>
+            <div class="detail-item">정서 안정도</div>
+            <div class="detail-item">최대 25점</div>
+          </div>
+          <div class="btn-mock dark-btn">완료</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="arr-h g"></div>
+
+  <!-- 4. 결과 총점 -->
+  <div class="col">
+    <div class="card accent">
+      <div class="card-tag">Screen 03</div>
+      <div class="card-title">결과<br>총점</div>
+      <div class="detail-list">
+        <div class="detail-item">내 총점 (0–100)</div>
+        <div class="detail-item">동연령·동성별 평균</div>
+        <div class="detail-item">막대 차트 비교</div>
+        <div class="detail-item">평균 대비 코멘트</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arr-h g"></div>
+
+  <!-- 5. 결과 영역별 -->
+  <div class="col">
+    <div class="card accent">
+      <div class="card-tag">Screen 04</div>
+      <div class="card-title">결과<br>영역별</div>
+      <div class="detail-list">
+        <div class="detail-item">레이더 차트 (4영역)</div>
+        <div class="detail-item">영역별 점수 + 평균</div>
+        <div class="detail-item">취약 영역 자동 감지</div>
+        <div class="detail-item">맞춤 코멘트 생성</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arr-h g"></div>
+
+  <!-- 6. 맞춤 추천 -->
+  <div class="col">
+    <div class="card accent">
+      <div class="card-tag">Screen 05</div>
+      <div class="card-title">맞춤<br>콘텐츠 추천</div>
+      <div class="detail-list">
+        <div class="detail-item">취약 영역 기반 필터</div>
+        <div class="detail-item">유튜브 영상 추천</div>
+        <div class="detail-item">카테고리 탭 전환</div>
+        <div class="detail-item">재시작 유도 버튼</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Score row -->
+<div class="score-row">
+  <div class="score-label">점수 구조</div>
+  <div class="score-chip">식습관 25점</div>
+  <div class="score-op">+</div>
+  <div class="score-chip">신체활동 25점</div>
+  <div class="score-op">+</div>
+  <div class="score-chip">수면 25점</div>
+  <div class="score-op">+</div>
+  <div class="score-chip">스트레스 25점</div>
+  <div class="score-op">=</div>
+  <div class="score-total">100점 만점</div>
+</div>
+
+</body>
+</html>
